@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/buttonHome"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_width="59dp"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                android:onClick="buttonHomePressed"
+                app:srcCompat="@drawable/drag_outline" />
+
+            <ImageButton
+                android:id="@+id/buttonCatalogue"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_width="55dp"
+                android:layout_height="67dp"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                android:onClick="buttonCataloguePressed"
+                android:visibility="visible"
+                app:srcCompat="@drawable/align_left_outline_1" />
+
+            <ImageButton
+                android:id="@+id/buttonManual"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                app:srcCompat="@drawable/study_outline" />
+        </LinearLayout>
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+</androidx.constraintlayout.widget.ConstraintLayout>

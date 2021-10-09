@@ -8,6 +8,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -136,6 +137,54 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/buttonHome"
+                android:layout_width="59dp"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                android:onClick="buttonHomePressed"
+                app:srcCompat="@drawable/home_outline"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/buttonCatalogue"
+                android:layout_width="55dp"
+                android:layout_height="67dp"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                android:onClick="buttonCataloguePressed"
+                android:visibility="visible"
+                app:srcCompat="@drawable/layers_outline"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/buttonManual"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                android:onClick="buttonManualPressed"
+                app:srcCompat="@drawable/study_outline"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

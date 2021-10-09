@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/drawable/button_main.xml" value="0.2703125" />
+        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/drawable/button_shape.xml" value="0.2703125" />
+        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/layout/activity_catalogue.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/layout/activity_manual.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/layout/activity_test.xml" value="0.25416666666666665" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/button_main.xml" value="0.11944444444444445" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/buttonshape.xml" value="0.11944444444444445" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/mask.xml" value="0.14444444444444443" />
