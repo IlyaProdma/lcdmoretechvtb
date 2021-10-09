@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <!-- Colors for day theme -->
+    <color name="day_blue_10">#EBF3FE</color>
+    <color name="day_blue_20">#D8E6FC</color>
+    <color name="day_blue_30">#B0CDF9</color>
+    <color name="day_blue_40">#89B5F7</color>
+    <color name="day_blue_50">#629CF4</color>
+    <color name="day_blue_60">#3A83F1</color>
+    <color name="day_blue_70">#316FCC</color>
+    <color name="day_blue_80">#225094</color>
+    <color name="day_blue_90">#14315C</color>
+    <color name="day_blue_100">#0B1D37</color>
+
+    <!-- Colors for night theme -->
+    <color name="night_blue_10">#172030</color>
+    <color name="night_blue_20">#1B2B46</color>
+    <color name="night_blue_30">#234171</color>
+    <color name="night_blue_40">#2B579B</color>
+    <color name="night_blue_50">#326DC6</color>
+    <color name="night_blue_60">#3A83F1</color>
+    <color name="night_blue_70">#5C97F1</color>
+    <color name="night_blue_80">#7EABF0</color>
+    <color name="night_blue_90">#A0C0EF</color>
+    <color name="night_blue_100">#C2D4EF</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="vtb_blue">#225094</color>
 </resources>

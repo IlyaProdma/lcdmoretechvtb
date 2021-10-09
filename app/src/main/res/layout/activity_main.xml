@@ -7,15 +7,129 @@
     tools:context=".MainActivity">
 
 
-    <View
-        android:id="@+id/mask"
-        android:layout_width="0dp"
-        android:layout_height="101dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/mask"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/panelCourseProgress"
+                android:layout_width="0dp"
+                android:layout_height="101dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/panel_course_progress"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewCourseProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Course progress:"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/panelCourseProgress"
+                app:layout_constraintTop_toTopOf="@id/panelCourseProgress" />
+
+            <ProgressBar
+                android:id="@+id/progressBarCourseProgress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="221dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.428"
+                app:layout_constraintStart_toEndOf="@+id/textViewCourseProgress"
+                app:layout_constraintTop_toTopOf="@id/panelCourseProgress" />
+
+            <TextView
+                android:id="@+id/textViewCourseProgressValue"
+                android:layout_width="95dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:text="0/0"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/panelCourseProgress"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCourseProgress" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/panelLessonProgress"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/panel_lesson_progress"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewLessonProgressLessonName"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text=":Lesson title:"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="@id/panelLessonProgress"
+                app:layout_constraintTop_toTopOf="@id/panelLessonProgress" />
+
+            <ProgressBar
+                android:id="@+id/progressBarLessonProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="347dp"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLessonProgressLessonName" />
+
+            <TextView
+                android:id="@+id/textViewLessonProgressProgressValue"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:text="0/0"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBarLessonProgress" />
+
+            <Button
+                android:id="@+id/buttonLessonProgressContinueLesson"
+                style="@style/Theme.LCD.Button"
+                android:layout_width="381dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="52dp"
+                android:text="Continue lesson"
+                app:layout_constraintBottom_toBottomOf="@+id/panelLessonProgress"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
