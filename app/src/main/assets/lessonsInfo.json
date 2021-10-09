@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Что такое инвестиции?",
+    "progress": 0,
+    "number_of_steps": 2
+  },
+  {
+    "id": 2,
+    "title": "Кто такой брокер?",
+    "progress": 0,
+    "number_of_steps": 1
+  }
+]

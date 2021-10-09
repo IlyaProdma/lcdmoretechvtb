@@ -3,16 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/layout/activity_catalogue.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/layout/activity_manual.xml" value="0.4" />
-        <entry key="..\:/Users/danni/OneDrive/Documents/VTBHack/app/src/main/res/layout/activity_test.xml" value="0.25416666666666665" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/button_main.xml" value="0.11944444444444445" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/buttonshape.xml" value="0.11944444444444445" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/mask.xml" value="0.14444444444444443" />
+        <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/panel_course_progress.xml" value="0.1111111111111111" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/panel_lesson_progress.xml" value="0.1" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/drawable/test.xml" value="0.1" />
-        <entry key="..\:/VTB_HACKATHON/app/src/main/res/layout/activity_catalogue.xml" value="0.1" />
+        <entry key="..\:/VTB_HACKATHON/app/src/main/res/layout/activity_catalogue.xml" value="0.13333333333333333" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/VTB_HACKATHON/app/src/main/res/layout/activity_manual.xml" value="0.14666666666666667" />
       </map>
