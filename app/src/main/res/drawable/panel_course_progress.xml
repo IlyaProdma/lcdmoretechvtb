@@ -5,9 +5,7 @@
     android:width="100dp"
     android:height="10dp"
     android:viewportWidth="327"
-    android:viewportHeight="101"
-    >
-
+    android:viewportHeight="101">
     <group>
 
         <clip-path
@@ -20,5 +18,4 @@
             />
 
     </group>
-
 </vector>
