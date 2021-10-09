@@ -7,7 +7,8 @@ public abstract class Step {
 class StepMaterial extends Step {
     String text;
 
-    StepMaterial(String text) {
+    StepMaterial(int number, String text) {
+        this.number = number;
         this.text = text;
     }
 }

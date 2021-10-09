@@ -3,13 +3,20 @@ package com.example.lcd;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.card.MaterialCardView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +38,106 @@ public class CatalogueActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        //lessonsListLayout = findViewById(R.id.lessonsListLayout);
-        @SuppressLint("WrongViewCast") Button button = findViewById(R.id.buttonHome);
-        button.setBackgroundResource(R.drawable.accept_outline);
+        setContentView(R.layout.activity_catalogue);
+        ShowLessons();
     }
 
+    public void ShowLessons() {
+        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        ArrayList<Lesson> lessonList = new ArrayList<Lesson>();
+        ArrayList<Step> steps = new ArrayList<Step>();
+        RVAdapter adapter = new RVAdapter(this, lessonList);
+        rv.setAdapter(adapter);
+        String data = "";
+        try {
+            InputStream fis = getAssets().open("lessonsInfo.json");
+            DataInputStream in = new DataInputStream(fis);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            while ((strLine = br.readLine()) != null)
+                data = data + strLine + "\n";
+            br.close();
+            in.close();
+            fis.close();
+            JSONArray jsonArray = new JSONArray(data);
+            for (int i = 0; i < jsonArray.length(); ++i) {
+                JSONObject oneObject = jsonArray.getJSONObject(i);
+                // Pulling items from the array
+                int id = Integer.parseInt(oneObject.getString("id"));
+                String title = oneObject.getString("title");
+                int progress = Integer.parseInt(oneObject.getString("progress"));
+                int stepsNumber = Integer.parseInt(oneObject.getString("number_of_steps"));
+                JSONArray stepsArray = oneObject.getJSONArray("steps");
+                for (int j = 0; j < stepsArray.length(); ++j) {
+                    JSONObject stepObject = stepsArray.getJSONObject(j);
+                    int sid = Integer.parseInt(stepObject.getString("id"));
+                    int type = Integer.parseInt(stepObject.getString("type"));
+                    if (type == 1) {
+                        String content = stepObject.getString("content");
+                        steps.add(new StepMaterial(sid, content));
+                    }
+                }
+                lessonList.add(new Lesson(id, title, progress, stepsNumber, steps));
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
 
+class RVAdapter extends RecyclerView.Adapter<RVAdapter.LessonViewHolder>{
+    ArrayList<Lesson> lessons;
+    private Context context;
+
+
+    RVAdapter(Context context, ArrayList<Lesson> lessons) {
+        this.context = context;
+        this.lessons = lessons;
+    }
+
+    @NonNull
+    @Override
+    public LessonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lessons_layout, parent, false);
+        LessonViewHolder lvh = new LessonViewHolder(v);
+        return lvh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull LessonViewHolder holder, int position) {
+        String title = Integer.toString(lessons.get(position).getId()) + ". " +
+                lessons.get(position).getTitle();
+        holder.lessonTitle.setText(title);
+        String progress = Integer.toString(lessons.get(position).getProgress()) + "/" +
+                Integer.toString(lessons.get(position).getNumberOfSteps());
+        holder.lessonProgress.setText(progress);
+    }
+
+    @Override
+    public int getItemCount() {
+        return lessons.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public static class LessonViewHolder extends RecyclerView.ViewHolder {
+        MaterialCardView cv;
+        TextView lessonTitle;
+        TextView lessonProgress;
+
+        LessonViewHolder(View itemView) {
+            super(itemView);
+            cv = (MaterialCardView)itemView.findViewById(R.id.cv);
+            lessonTitle = (TextView)itemView.findViewById(R.id.lesson_title);
+            lessonProgress = (TextView)itemView.findViewById(R.id.lesson_progress);
+        }
+    }
+
+}

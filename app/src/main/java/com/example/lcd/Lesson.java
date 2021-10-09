@@ -7,12 +7,14 @@ public class Lesson {
     private String title;
     private int progress;
     private int numberOfSteps;
+    private ArrayList<Step> steps;
 
-    public Lesson(int id, String title, int progress, int numberOfSteps) {
+    public Lesson(int id, String title, int progress, int numberOfSteps, ArrayList<Step> steps) {
         this.id = id;
         this.title = title;
         this.progress = progress;
         this.numberOfSteps = numberOfSteps;
+        this.steps = steps;
     }
 
     public int getId() {
@@ -30,4 +32,6 @@ public class Lesson {
     public int getNumberOfSteps() {
         return numberOfSteps;
     }
+
+    public ArrayList<Step> getSteps() { return steps; }
 }
