@@ -1,18 +1,15 @@
 package com.example.lcd;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,20 +21,36 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CatalogueActivity extends AppCompatActivity {
 
+    private Intent lesson;
+    private static boolean activityStarted;
+
+    public static void setActivityStarted(boolean val) {
+        activityStarted = val;
+    }
+
+    public static boolean getActivityStarted() {
+        return activityStarted;
+    }
+
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
+        activityStarted = true;
+        setContentView(R.layout.activity_catalogue);
+        ShowLessons();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        activityStarted = true;
         setContentView(R.layout.activity_catalogue);
         ShowLessons();
     }
@@ -84,7 +97,21 @@ public class CatalogueActivity extends AppCompatActivity {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
+    }
 
+    public void buttonHomePressed(View view) {
+        //if (MainActivity.getActivityStarted())
+        //    setContentView(R.layout.activity_main);
+        //else
+            startActivity(new Intent(view.getContext(), MainActivity.class));
+    }
+
+    public void buttonCataloguePressed(View view) {
+        setContentView(R.layout.activity_catalogue);
+    }
+
+    public void buttonManualPressed(View view) {
+        setContentView(R.layout.activity_manual);
     }
 
 }
@@ -115,6 +142,18 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.LessonViewHolder>{
         String progress = Integer.toString(lessons.get(position).getProgress()) + "/" +
                 Integer.toString(lessons.get(position).getNumberOfSteps());
         holder.lessonProgress.setText(progress);
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent lesson = new Intent(context, LessonActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("lessonId", lessons.get(holder.getAdapterPosition()).getId());
+                b.putInt("progressId", lessons.get(holder.getAdapterPosition()).getProgress());
+                b.putInt("numberSteps", lessons.get(holder.getAdapterPosition()).getNumberOfSteps());
+                lesson.putExtras(b);
+                context.startActivity(lesson);
+            }
+        });
     }
 
     @Override

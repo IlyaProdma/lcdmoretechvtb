@@ -37,21 +37,41 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Intent intentCatalogue;
+    private static boolean activityStarted;
+
+    public static void setActivityStarted(boolean val) {
+        activityStarted = val;
+    }
+
+    public static boolean getActivityStarted() {
+        return activityStarted;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        activityStarted = true;
+        CatalogueActivity.setActivityStarted(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        intentCatalogue= new Intent(this, CatalogueActivity.class);
+        intentCatalogue = new Intent(this, CatalogueActivity.class);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setContentView(R.layout.activity_main);
     }
 
     public void buttonHomePressed(View view) {
+        //startActivity(new Intent(view.getContext(), MainActivity.class));
         setContentView(R.layout.activity_main);
     }
 
     public void buttonCataloguePressed(View view) {
-        startActivity(intentCatalogue);
-
+        //if (CatalogueActivity.getActivityStarted())
+        //    setContentView(R.layout.activity_catalogue);
+        //else
+            startActivity(new Intent(view.getContext(), CatalogueActivity.class));
     }
 
     public void buttonManualPressed(View view) {
