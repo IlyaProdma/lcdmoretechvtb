@@ -40,21 +40,21 @@ public class TestActivity extends AppCompatActivity {
     private int numberAllAnswers;
     ArrayList<Test> questions;
     int questionId;
-    Integer[] recorded_answers;
 
     @Override
     protected void onStart()
     {
         super.onStart();
-        Bundle b = getIntent().getExtras();
-        int questionId = b.getInt("questionId");
-        numberAllAnswers = b.getInt("numberAnswers");
-        ArrayList<Test> questions = new ArrayList<Test>();
+        questionId = 0;
+        numberAllAnswers = 5;
+        answers = new ArrayList<Answer>();
+        questions = new ArrayList<Test>();
         try {
             questions = Test.readQuestions(getAssets().open("testInfo.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         if(answers.isEmpty()) {setContentView(R.layout.test_first_page);}
         else setContentView(R.layout.activity_test);
     }
@@ -70,47 +70,19 @@ public class TestActivity extends AppCompatActivity {
         Button button2 = findViewById(R.id.button2);
         button2.setText(answer1);
         Button button3 = findViewById(R.id.button3);
-        button2.setText(answer2);
+        button3.setText(answer2);
         Button button4 = findViewById(R.id.button4);
-        button2.setText(answer3);
+        button4.setText(answer3);
         Button button5 = findViewById(R.id.button5);
-        button2.setText(answer4);
+        button5.setText(answer4);
         Button button6 = findViewById(R.id.button6);
-        button2.setText(answer5);
+        button6.setText(answer5);
         TextView questionText = findViewById(R.id.textView);
         questionText.setText(questionTitle);
     }
 
     public void buttonTestPressed(View view) {
-        switch (view.getId())
-        {
-            case R.id.button2:
-            {
-                recorded_answers[questionId - 2] = 1;
-            }
-            break;
-            case R.id.button3:
-            {
-                recorded_answers[questionId - 2] = 2;
-            }
-            break;
-            case R.id.button4:
-            {
-                recorded_answers[questionId - 2] = 3;
-            }
-            break;
-            case R.id.button5:
-            {
-                recorded_answers[questionId - 2] = 4;
-            }
-            break;
-            case R.id.button6:
-            {
-                recorded_answers[questionId - 2] = 5;
-            }
-            break;
-            default: recorded_answers[questionId - 2] = 0; //mb runtime error, hz
-        }
+
         questionId++;
         setContentView(R.layout.activity_test);
         setNewQuestion();

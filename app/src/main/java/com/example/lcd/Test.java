@@ -65,6 +65,7 @@ public class Test {
                     JSONObject answerObject = answersArray.getJSONObject(j);
                     int aid = Integer.parseInt(answerObject.getString("id"));
                     String content = answerObject.getString("content");
+                    answers.add(new Answer(aid, content));
                 }
                 questionList.add(new Test(id, title, answersNumber, answers));
             }

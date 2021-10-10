@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".LessonActivity">
         </activity>
+        <activity android:name=".TestActivity">
+        </activity>
 
     </application>
 
