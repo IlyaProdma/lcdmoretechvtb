@@ -43,43 +43,4 @@ public class Lesson {
     }
 
     public ArrayList<Step> getSteps() { return steps; }
-
-    public static ArrayList<Lesson> readLessons(InputStream fis) {
-        ArrayList<Lesson> lessonList = new ArrayList<Lesson>();
-        String data = "";
-        try {
-            DataInputStream in = new DataInputStream(fis);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String strLine;
-            while ((strLine = br.readLine()) != null)
-                data = data + strLine + "\n";
-            br.close();
-            in.close();
-            fis.close();
-            JSONArray jsonArray = new JSONArray(data);
-            for (int i = 0; i < jsonArray.length(); ++i) {
-                JSONObject oneObject = jsonArray.getJSONObject(i);
-                // Pulling items from the array
-                int id = Integer.parseInt(oneObject.getString("id"));
-                String title = oneObject.getString("title");
-                int progress = Integer.parseInt(oneObject.getString("progress"));
-                int stepsNumber = Integer.parseInt(oneObject.getString("number_of_steps"));
-                JSONArray stepsArray = oneObject.getJSONArray("steps");
-                ArrayList<Step> steps = new ArrayList<Step>();
-                for (int j = 0; j < stepsArray.length(); ++j) {
-                    JSONObject stepObject = stepsArray.getJSONObject(j);
-                    int sid = Integer.parseInt(stepObject.getString("id"));
-                    int type = Integer.parseInt(stepObject.getString("type"));
-                    if (type == 1) {
-                        String content = stepObject.getString("content");
-                        steps.add(new StepMaterial(sid, content));
-                    }
-                }
-                lessonList.add(new Lesson(id, title, progress, stepsNumber, steps));
-            }
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        return lessonList;
-    }
 }

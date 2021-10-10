@@ -19,11 +19,6 @@
             android:fillColor="#FFFFFF"
             />
 
-        <path
-            android:pathData="M24 0H303C316.255 0 327 10.7452 327 24V102C327 115.255 316.255 126 303 126H24C10.7452 126 0 115.255 0 102V24C0 10.7452 10.7452 0 24 0Z"
-            android:strokeWidth="0"
-            android:strokeColor="@color/day_blue_100"
-            />
 
     </group>
 

@@ -3,6 +3,7 @@ package com.example.lcd;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,9 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,41 +43,19 @@ public class CatalogueActivity extends AppCompatActivity {
         return activityStarted;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        activityStarted = true;
-        setContentView(R.layout.activity_catalogue);
-        ShowLessons();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        activityStarted = true;
-        setContentView(R.layout.activity_catalogue);
-        ShowLessons();
-    }
-
-    public void ShowLessons() {
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        rv.setLayoutManager(llm);
-        ArrayList<Lesson> lessonList = new ArrayList<Lesson>();
-        ArrayList<Step> steps = new ArrayList<Step>();
-        RVAdapter adapter = new RVAdapter(this, lessonList);
-        rv.setAdapter(adapter);
-        String data = "";
+    private ArrayList<Lesson> readFromFile() {
+        FileInputStream fis = null;
+        ArrayList<Lesson> lessonList = new ArrayList<>();
         try {
-            InputStream fis = getAssets().open("lessonsInfo.json");
-            DataInputStream in = new DataInputStream(fis);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String strLine;
-            while ((strLine = br.readLine()) != null)
-                data = data + strLine + "\n";
-            br.close();
-            in.close();
-            fis.close();
+            fis = openFileInput("stats.json");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String text;
+            while ((text = br.readLine()) != null) {
+                sb.append(text).append("\n");
+            }
+            String data = sb.toString();
             JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); ++i) {
                 JSONObject oneObject = jsonArray.getJSONObject(i);
@@ -83,20 +65,103 @@ public class CatalogueActivity extends AppCompatActivity {
                 int progress = Integer.parseInt(oneObject.getString("progress"));
                 int stepsNumber = Integer.parseInt(oneObject.getString("number_of_steps"));
                 JSONArray stepsArray = oneObject.getJSONArray("steps");
+                ArrayList<Step> tempSteps = new ArrayList<Step>();
                 for (int j = 0; j < stepsArray.length(); ++j) {
                     JSONObject stepObject = stepsArray.getJSONObject(j);
                     int sid = Integer.parseInt(stepObject.getString("id"));
                     int type = Integer.parseInt(stepObject.getString("type"));
                     if (type == 1) {
                         String content = stepObject.getString("content");
-                        steps.add(new StepMaterial(sid, content));
+                        tempSteps.add(new StepMaterial(sid, content));
                     }
                 }
-                lessonList.add(new Lesson(id, title, progress, stepsNumber, steps));
+                lessonList.add(new Lesson(id, title, progress, stepsNumber, tempSteps));
             }
-        } catch (IOException | JSONException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        return lessonList;
+    }
+
+    private ArrayList<Lesson> read2() {
+        ArrayList<Lesson> lessonList = new ArrayList<>();
+        try {
+            InputStream is = null;
+            is = getAssets().open("lessonsInfo.json");
+            DataInputStream in = new DataInputStream(is);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            String data = "";
+            while ((strLine = br.readLine()) != null)
+                data = data + strLine + "\n";
+            br.close();
+            in.close();
+            is.close();
+            JSONArray jsonArray = new JSONArray(data);
+            for (int i = 0; i < jsonArray.length(); ++i) {
+                JSONObject oneObject = jsonArray.getJSONObject(i);
+                // Pulling items from the array
+                int id = Integer.parseInt(oneObject.getString("id"));
+                String title = oneObject.getString("title");
+                int progress = Integer.parseInt(oneObject.getString("progress"));
+                int stepsNumber = Integer.parseInt(oneObject.getString("number_of_steps"));
+                JSONArray stepsArray = oneObject.getJSONArray("steps");
+                ArrayList<Step> tempSteps = new ArrayList<Step>();
+                for (int j = 0; j < stepsArray.length(); ++j) {
+                    JSONObject stepObject = stepsArray.getJSONObject(j);
+                    int sid = Integer.parseInt(stepObject.getString("id"));
+                    int type = Integer.parseInt(stepObject.getString("type"));
+                    if (type == 1) {
+                        String content = stepObject.getString("content");
+                        tempSteps.add(new StepMaterial(sid, content));
+                    }
+                }
+                lessonList.add(new Lesson(id, title, progress, stepsNumber, tempSteps));
+            }
+        } catch(IOException exc){
+            exc.printStackTrace();
+        } catch(JSONException jsonException){
+            jsonException.printStackTrace();
+        }
+        return lessonList;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        activityStarted = true;
+        setContentView(R.layout.activity_catalogue);
+        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        ArrayList<Lesson> lessonList = readFromFile();
+        if (lessonList.size() == 0)
+            lessonList = read2();
+        RVAdapter adapter = new RVAdapter(this, lessonList);
+        rv.setAdapter(adapter);
+        //rv.notifyAll();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        activityStarted = true;
+        setContentView(R.layout.activity_catalogue);
+        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        ArrayList<Lesson> lessonList = readFromFile();
+        if (lessonList.size() == 0)
+            lessonList = read2();
+        RVAdapter adapter = new RVAdapter(this, lessonList);
+        rv.setAdapter(adapter);
+        //rv.notifyAll();
+        adapter.notifyDataSetChanged();
     }
 
     public void buttonHomePressed(View view) {
@@ -154,6 +219,7 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.LessonViewHolder>{
                 context.startActivity(lesson);
             }
         });
+
     }
 
     @Override

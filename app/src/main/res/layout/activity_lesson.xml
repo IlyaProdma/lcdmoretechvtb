@@ -27,6 +27,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="10dp"
                 android:text="0/10"
+                android:textSize="20sp"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,6 +41,9 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
                 android:text="test"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/step_progress" />
@@ -49,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="104dp"
                 android:onClick="buttonCataloguePressed"
-                android:text="Back to list"
+                android:text="Вернуться к списку"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/buttonArrowRight"
                 app:layout_constraintStart_toEndOf="@+id/buttonArrowLeft"
